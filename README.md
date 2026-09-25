@@ -30,14 +30,14 @@ node --test tests/background.test.js # Тесты фоновой логики
 
 ## Релизы
 
-Выберите новую версию, например `1.0.1`, и укажите её в `public/manifest.json`. Затем выполните из папки проекта, подставив свой номер версии:
+Выберите новую версию, например `1.0.2`, и укажите её в `public/manifest.json`. Затем выполните из папки проекта, подставив свой номер версии:
 
 ```sh
 git add .
-git commit -m "Prepare release 1.0.1"
-npm version 1.0.1
+git commit -m "Prepare release 1.0.2"
+npm version 1.0.2
 git push
-git push origin v1.0.1
+git push origin v1.0.2
 ```
 
-После команды `git push origin v1.0.1` запустятся тесты и сборка в CI: прогресс — во вкладке **Actions**, готовый ZIP — в [Releases](https://github.com/KORODEN/proxy-extension/releases).
+После команды `git push origin v1.0.2` запустятся тесты и сборка в CI: прогресс — во вкладке **Actions**, готовый ZIP — в [Releases](https://github.com/KORODEN/proxy-extension/releases).
