@@ -1,73 +1,43 @@
-# React + TypeScript + Vite
+﻿# Proxy Extension
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Расширение для Chrome: HTTP-прокси с логином и паролем.
 
-Currently, two official plugins are available:
+## Установка
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Скачайте ZIP из [Releases](https://github.com/KORODEN/proxy-extension/releases) и распакуйте его.
+2. Откройте `chrome://extensions` и включите «Режим разработчика».
+3. Нажмите «Загрузить распакованное расширение» и выберите распакованную папку.
 
-## React Compiler
+## Настройка
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Откройте расширение, укажите адрес сервера без протокола и пути, порт, логин и пароль. Нажмите «Сохранить», затем включите прокси переключателем.
 
-## Expanding the ESLint configuration
+Зелёная точка на значке означает, что прокси включён, красная — ошибку авторизации. При ошибке проверьте логин и пароль в настройках.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Разработка
 
-```js
-export default defineConfig([
-    globalIgnores(["dist"]),
-    {
-        files: ["**/*.{ts,tsx}"],
-        extends: [
-            // Other configs...
-
-            // Remove tseslint.configs.recommended and replace with this
-            tseslint.configs.recommendedTypeChecked,
-            // Alternatively, use this for stricter rules
-            tseslint.configs.strictTypeChecked,
-            // Optionally, add this for stylistic rules
-            tseslint.configs.stylisticTypeChecked,
-
-            // Other configs...
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-                tsconfigRootDir: import.meta.dirname,
-            },
-            // other options...
-        },
-    },
-]);
+```sh
+npm ci
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Загрузите папку `dist` как распакованное расширение. После изменений пересоберите проект и обновите расширение в Chrome.
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-    globalIgnores(["dist"]),
-    {
-        files: ["**/*.{ts,tsx}"],
-        extends: [
-            // Other configs...
-            // Enable lint rules for React
-            reactX.configs["recommended-typescript"],
-            // Enable lint rules for React DOM
-            reactDom.configs.recommended,
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-                tsconfigRootDir: import.meta.dirname,
-            },
-            // other options...
-        },
-    },
-]);
+```sh
+npm run lint                         # Проверка кода
+node --test tests/background.test.js # Тесты фоновой логики
 ```
+
+## Релизы
+
+Выберите новую версию, например `1.0.1`, и укажите её в `public/manifest.json`. Затем выполните из папки проекта, подставив свой номер версии:
+
+```sh
+git add .
+git commit -m "Prepare release 1.0.1"
+npm version 1.0.1
+git push
+git push origin v1.0.1
+```
+
+После команды `git push origin v1.0.1` запустятся тесты и сборка в CI: прогресс — во вкладке **Actions**, готовый ZIP — в [Releases](https://github.com/KORODEN/proxy-extension/releases).
